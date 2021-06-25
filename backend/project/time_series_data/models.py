@@ -1,11 +1,17 @@
+import datetime
+
 import pylab as pl
 from django.db import models
 from project.common.models import FileDTO, Reader, Printer
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 from icecream import ic
 from matplotlib import font_manager, rc
-import matplotlib.pyplot as plt
+from fbprophet import Prophet
+from pandas_datareader import data
+import yfinance as yf
+yf.pdr_override()
 
 
 class TimeSeries(Reader):
@@ -29,7 +35,7 @@ class TimeSeries(Reader):
         file.context = './data/'
         file.fname = '08. PinkWink Web Traffic'
 
-        hit_read = reader.csv(file, None)
+        hit_read = reader.csv_header(file, None)
 
         hit_read.columns = ['date', 'hit']
         hit_read = hit_read[hit_read['hit'].notnull()]
@@ -37,7 +43,7 @@ class TimeSeries(Reader):
         return hit_read
 
 
-    def make_plot1(self):
+    def polyfit_regression(self):
 
         hit_read = self.read_file()
 
@@ -96,7 +102,7 @@ class TimeSeries(Reader):
         plt.show()
 
 
-    def make_plot2(self):
+    def forecast(self):
 
         hit_read = self.read_file()
         df = pd.DataFrame({'ds':hit_read['date'], 'y':hit_read['hit']})
@@ -104,12 +110,110 @@ class TimeSeries(Reader):
         df.reset_index(inplace=True)
         df['ds'] = pd.to_datetime(df['ds'], format="%y. %m. %d.")
 
+        m = Prophet(yearly_seasonality=True, daily_seasonality=True)
+        m.fit(df)
 
+        f = m.make_future_dataframe(periods=60)
+
+        forecast = m.predict(f)
+        # ic(forecast[['ds','yhat','yhat_lower','yhat_upper']].tail())
+
+        m.plot(forecast)
+        plt.show()
+
+        m.plot_components(forecast)
+        plt.show()
+
+
+    def kia_scrap(self):
+
+        start_date = '2000-1-1' # 2000년 까지 밖에 없음
+        end_date = '2020-12-31'
+        KIA = data.get_data_yahoo('000270.KS', start_date, end_date)
+
+        KIA.to_csv('./saved_data/KIA.csv')
+        # KIA.head()
+
+    def seasonal(self):
+
+        file = self.file
+        reader = self.reader
+
+        file.context = './saved_data/'
+        file.fname = 'KIA'
+
+        saved_KIA = reader.csv(file, 0)
+        # ic(type(saved_KIA))
+
+        saved_KIA['Close'].plot(figsize=(12,6), grid=True)
+        # plt.show()
+
+        KIA_idx = saved_KIA.set_index('Date')
+        KIA_trunc = KIA_idx[:'2010-12-31']
+
+        KIA_trunc = pd.DataFrame({'ds':KIA_trunc.index, 'y':KIA_trunc['Close']})
+        KIA_trunc.reset_index(inplace=True)
+        del KIA_trunc['Date']
+        # ic(KIA_trunc.head())
+
+        m = Prophet(daily_seasonality=True)
+        m.fit(KIA_trunc)
+
+        f = m.make_future_dataframe(periods=365)
+        # ic(f.tail())
+
+        forecast = m.predict(f)
+        # forecast[['ds','yhat','yhat_lower','yhat_upper']].tail()
+        m.plot(forecast)
+
+        m.plot_components(forecast)
+
+        # plt.show()
+
+        # KIA_trunc.to_csv('./saved_data/KIA_trunc.csv')
+
+        KIA_trunc2 = KIA_idx.loc['2014-01-01':'2017-07-31',:]
+
+        KIA_trunc2['Close'].plot(figsize = (12,6), grid = True)
+
+        # KIA_trunc2 = KIA_trunc2[:'2017-05-31']
+        # KIA_trunc2['Close'].plot(figsize=(12,6), grid =True)
+
+        KIA_trunc3 = pd.DataFrame({'ds': KIA_trunc2.index, 'y':KIA_trunc2['Close']})
+        KIA_trunc3.reset_index(inplace=True)
+        del KIA_trunc3['Date']
+
+        m = Prophet(daily_seasonality=True)
+        m.fit(KIA_trunc3)
+
+        fu = m.make_future_dataframe(periods=61)
+        # fu.tail()
+
+        forecast = m.predict(fu)
+        m.plot(forecast)
+
+        ic(KIA_trunc3)
+        ic(KIA_trunc2)
+        ic(forecast)
+        '''
+        plt.figure(figsize=(12, 6))
+        plt.plot(KIA_trunc2['ds'], KIA_trunc2['y'], label='real')
+        plt.plot(forecast['ds'], forecast['yhat'], label='forecast')
+        plt.grid()
+        plt.legend()
+        plt.show()
+        '''
+        
+        # plt.show()
+
+        # KIA_trunc2.to_csv('./saved_data/KIA_trunc2.csv')
 
 
 
 
 if __name__ == '__main__':
     t = TimeSeries()
-    # t.make_plot1()
-    t.make_plot2()
+    # t.polyfit_regression()
+    # t.forecast()
+    # t.kia_scrap()
+    t.seasonal()

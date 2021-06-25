@@ -84,8 +84,8 @@ class Reader(ReaderBase):
     def new_file(self, file) -> str:
         return file.context + file.fname
 
-    def csv(self, file, header) -> object:
-        return pd.read_csv(f'{self.new_file(file)}.csv', encoding='UTF-8', thousands=',', header=header)
+    def csv(self, file) -> object:
+        return pd.read_csv(f'{self.new_file(file)}.csv', encoding='UTF-8', thousands=',')
 
     def xls(self, file, header, usecols) -> object:
         return pd.read_excel(f'{self.new_file(file)}.xls', header=header, usecols=usecols)
@@ -95,6 +95,9 @@ class Reader(ReaderBase):
 
     def gmaps(self) -> object:
         return googlemaps.Client(key='')
+
+    def csv_header(self, file, header) -> object:
+        return pd.read_csv(f'{self.new_file(file)}.csv', encoding='UTF-8', thousands=',', header=header)
 
 
 class Scraper(ScraperBase):
