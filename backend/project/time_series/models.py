@@ -1,5 +1,5 @@
 from django.db import models
-from monaco.common.models import FileDTO, Printer, Reader
+from project.common.models import FileDTO, Printer, Reader
 import pandas as pd
 import numpy as np
 import warnings

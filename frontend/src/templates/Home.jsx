@@ -1,23 +1,37 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import axios from 'axios';
+import { Button } from '@material-ui/core';
 
 
 const Home = ({children}) => { 
-
+    /*
     useEffect(()=>{
+        
+    },[])
+    */
+
+    const [connection, setConnetion] = useState(false)
+    
+    const handleClick = e => {
+        e.preventDefault()
         axios({
             method: "get",
-            url: "http://127.0.0.1:8000/hello",
+            url: "http://127.0.0.1:8000/connection",
             responseType: "json"
-        }).then(function (response) {
-            alert(response.data.greeting)
+        }).then(function (res) {
+            setConnetion(res.data.connection === 'SUCCESS')
         });
-    },[])
-    
+    }
+
     return (<>
     <table className="tab-lay">
         <tr><td><h1>홈</h1></td></tr>
-        <tr><td><button>서버 연결 테스트</button></td></tr>
+        <tr><td><Button color='primary' onClick={handleClick}>서버 연결 테스트</Button></td></tr>
+        <tr><td>{ connection ?
+        '연결상태입니다.'
+        :
+        '연결상태가 아닙니다.'
+        }</td></tr>
     </table>
     {children}
 </>)}

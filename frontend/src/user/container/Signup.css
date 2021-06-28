@@ -1,8 +1,8 @@
-body {font-family: Arial, Helvetica, sans-serif;}
+.Singup body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box}
 
 /* Full-width input fields */
-input[type=text], input[type=password] {
+.Singup input[type=text], .Singup input[type=password] {
   width: 100%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -11,18 +11,18 @@ input[type=text], input[type=password] {
   background: #f1f1f1;
 }
 
-input[type=text]:focus, input[type=password]:focus {
+.Singup input[type=text]:focus, .Singup input[type=password]:focus {
   background-color: #ddd;
   outline: none;
 }
 
-hr {
+.Singup hr {
   border: 1px solid #f1f1f1;
   margin-bottom: 25px;
 }
 
 /* Set a style for all buttons */
-button {
+.Singup button {
   background-color: #04AA6D;
   color: white;
   padding: 14px 20px;
@@ -33,29 +33,29 @@ button {
   opacity: 0.9;
 }
 
-button:hover {
+.Singup button:hover {
   opacity:1;
 }
 
 /* Extra styles for the cancel button */
-.cancelbtn {
+.Singup .cancelbtn {
   padding: 14px 20px;
   background-color: #f44336;
 }
 
 /* Float cancel and signup buttons and add an equal width */
-.cancelbtn, .signupbtn {
+.Singup .cancelbtn, .Singup .signupbtn {
   float: left;
   width: 50%;
 }
 
 /* Add padding to container elements */
-.container {
+.Singup .container {
   padding: 16px;
 }
 
 /* Clear floats */
-.clearfix::after {
+.Singup .clearfix::after {
   content: "";
   clear: both;
   display: table;
@@ -63,7 +63,7 @@ button:hover {
 
 /* Change styles for cancel button and signup button on extra small screens */
 @media screen and (max-width: 300px) {
-  .cancelbtn, .signupbtn {
+  .Singup .cancelbtn, .Singup .signupbtn {
      width: 100%;
   }
 }
