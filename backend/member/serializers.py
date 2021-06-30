@@ -1,21 +1,21 @@
 from rest_framework import serializers
-from .models import Member
+from .models import MemberVO as member
 
 
 
 class MemberSerializer(serializers.Serializer):
     # pk인 id는 99퍼센트 수정 안 할 것이므로 read_only
-    usermane = serializers.CharField()
+    username = serializers.CharField()
     password = serializers.CharField()
     name = serializers.CharField()
     email = serializers.EmailField()
 
     class Meta:
-        model = Member
-        fields = ['usermane', 'password', 'name', 'email']
+        model = member
+        fields = '__all__'
 
     def create(self, validated_data):
-        return Member.objects.create(**validated_data)
+        return member.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         # id, created_at, updated_at은 read only 필드이므로 update method에서는 제외함

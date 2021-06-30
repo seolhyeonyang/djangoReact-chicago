@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Post(models.Model):
+class PostVO(models.Model):
     # sequence = models.AutoField(primary_key=True, default = 1000)
     title = models.CharField(max_length=30)
     content = models.TextField()
