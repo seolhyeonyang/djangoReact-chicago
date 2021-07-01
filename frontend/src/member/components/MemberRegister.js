@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import './Signup.css'
-import { userSignup } from '../../api'
+import '../styles/MemberRegister.css'
+import { MemberRegister } from '../../api'
 import { useHistory } from 'react-router'
 
-const SignUp = () => {
+const MemeberRegister = () => {
   const history = useHistory()
   const [ userInfo, setUserInfo] = useState({
     username : '',
@@ -25,7 +25,7 @@ const SignUp = () => {
   const handleSubmit = e => {
     e.preventDefault()
     alert(`전송 클릭 ${JSON.stringify({...userInfo})}`)
-    userSignup({...userInfo})
+    MemberRegister({...userInfo})
     .then(res => {
       alert(`회원가입 완료 : ${res.data.result}`)
       // history.push('login')
@@ -73,4 +73,4 @@ const SignUp = () => {
 </>)
 }
 
-export default SignUp
+export default MemeberRegister

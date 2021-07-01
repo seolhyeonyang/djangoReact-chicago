@@ -1,6 +1,6 @@
 import React from 'react'
 
-const UserDetail = () => {
+const MemverDetail = () => {
     return (<>
     
       
@@ -16,4 +16,4 @@ const UserDetail = () => {
     </>)
 }
 
-export default UserDetail
+export default MemverDetail

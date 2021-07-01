@@ -1,1 +1,1 @@
-export { default as PostWrite} from './container/PostWrite'
+export { default as PostRegister} from './components/PostRegister'

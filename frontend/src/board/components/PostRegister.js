@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import './PostWrite.css'
-import { userBoard } from '../../api'
+import '../styles/PostRegister.css'
+import { boardRegister } from '../../api'
 
 
 
-const PostWrite = () => {
+const PostRegister = () => {
     const [ userInfo, setUserInfo] = useState({
         title : '',
         content : '',
@@ -17,7 +17,7 @@ const PostWrite = () => {
     const handleSubmit = e => {
         e.preventDefault()
         alert(`확인`)
-        userBoard({...userInfo})
+        boardRegister({...userInfo})
         .then(res => {
             alert(`게시글 작성 완료 : ${res.data.result}`)
         })
@@ -65,4 +65,4 @@ const PostWrite = () => {
 </>)
 }
 
-export default PostWrite
+export default PostRegister

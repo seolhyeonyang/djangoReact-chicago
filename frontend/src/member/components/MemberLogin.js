@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
-// import './Login.css'
-import { userLogin } from '../../api'
+//import '../styles/MemberList.css'
+import { memberLogin } from '../../api'
 
-const Login = () => {
+const MemverLogin = () => {
   
   const [ userInfo, setUserInfo ] = useState({
     username : '',
@@ -22,7 +22,7 @@ const Login = () => {
   const handleSubmit = e => {
     e.preventDefault()
     alert(`로그인`)
-    userLogin({...userInfo})
+    memberLogin({...userInfo})
     .then(res => {
       alert(`로그인 성공 : ${res.data.result}`)
     })
@@ -41,7 +41,7 @@ const Login = () => {
         <h2>Login Form</h2>
         <hr/>
 
-        <form onSubmit={handleSubmit} action="/action_page.php" method="get">
+        <form onSubmit={handleSubmit} action="/action_page.php" method="post">
           <div class="imgcontainer">
             <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" class="avatar"/>
           </div>
@@ -68,4 +68,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default MemverLogin
