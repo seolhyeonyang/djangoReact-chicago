@@ -9,7 +9,7 @@ export const memberLogin = body => axios.post(`${SEVER}api/member/login`, {heade
 export const memberDelete = body => axios.post(`${SEVER}api/member/delete`, {headers, body})
 export const memberDetail = body => axios.post(`${SEVER}api/member/detail`, {headers, body})
 export const memberList = () => axios.get(`${SEVER}adm/member/list`)
-export const memberModify = body => axios.post(`${SEVER}api/member/modify`, {headers, body})
+export const memberModify = body => axios.put(`${SEVER}api/member/modify`, {headers, body})
 export const MemberRegister = body => axios.post(`${SEVER}api/member/register`, {headers, body})
 export const memberRetrieve = body => axios.post(`${SEVER}adm/member/retrieve`, {headers, body})
 

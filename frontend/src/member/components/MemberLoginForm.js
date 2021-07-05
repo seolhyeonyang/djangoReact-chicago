@@ -1,8 +1,11 @@
 import React, {useState} from 'react'
 //import '../styles/MemberList.css'
 import { memberLogin } from '../../api'
+import { useHistory } from 'react-router'
 
 const MemberLoginForm = () => {
+
+  const history = useHistory()
   
   const [ userInfo, setUserInfo ] = useState({
     username : '',
@@ -24,7 +27,19 @@ const MemberLoginForm = () => {
     alert(`로그인`)
     memberLogin({...userInfo})
     .then(res => {
-      alert(`로그인 성공 : ${res.data.result}`)
+      if(res.data.result === 'PASSWORD_FAIL'){
+        alert(`비밀번호가 틀립니다.`)
+        document.getElementById("username").value = ""
+        document.getElementById("password").value = ""
+      
+      }else if(res.data.result === 'USERNAME_FAIL'){
+        alert(`아이디가 틀립니다.`)
+
+      }else{
+        alert(`로그인 성공 : ${JSON.stringify(res.data)}`)
+        localStorage.setItem("loginedMember", JSON.stringify(res.data))
+        history.push('/member-list')
+      }
     })
     .catch(err => {
       alert(`로그인 실패 : ${err}`)
@@ -48,10 +63,10 @@ const MemberLoginForm = () => {
         
           <div className="container">
             <label for="username"><b>UserID</b></label>
-            <input type="text" placeholder="Enter Username" onChange={handleChange} name="username" value={username} required/>
+            <input type="text" placeholder="Enter Username" onChange={handleChange} id="username" name="username" value={username} required/>
         
             <label for="password"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" onChange={handleChange} name="password" value={password} required/>
+            <input type="password" placeholder="Enter Password" onChange={handleChange} id="password" name="password" value={password} required/>
                 
             <button type="submit">Login</button>
             <label>

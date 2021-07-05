@@ -7,6 +7,8 @@ import { PostRegister } from './board'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { memberDelete } from './api'
+
+
 const App = () => {
   return (<div>
     <Router>
@@ -19,6 +21,7 @@ const App = () => {
         <Route exact path='/member-login' component={MemberLogin}/>
         <Route exact path='/member-detail/:id' component={MemberDetail}/>
         <Route exact path='/member-list' component={MemberList}/>
+        <Route exact path='/member-logout' component={Home}/>
         <Route exact path='/member-modify' component={MemberModify}/>
         <Route exact path='/member-register' component={MemberRegister}/>
 
