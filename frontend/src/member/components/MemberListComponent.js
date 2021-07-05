@@ -11,7 +11,9 @@ import Paper from '@material-ui/core/Paper';
 import Pagination from '@material-ui/lab/Pagination';
 import Footer from '@material-ui/core/Table';
 import { memberList } from '../../api';
-import { Error } from '@material-ui/icons';
+import { Link } from 'react-router-dom';
+
+
 const useStyles = makeStyles({
     table: {
       minWidth: 650,
@@ -24,12 +26,16 @@ const useStyles = makeStyles({
         },
       },
     }));
-  const MemberList = () => {
+
+  const MemberListComponent = () => {
     const [ members, setMembers ] = useState([])
+
     const [ page, setPage ] = useState(0)
     const [ rowsPerPage, setRowsPerPage ] = useState(2)
+
     const classes = useStyles();
     const pageClasses = usePageStyles();
+
     useEffect( () => {
       memberList()
       .then( res => {
@@ -39,13 +45,20 @@ const useStyles = makeStyles({
         console.log(err.data)
       })
     }, [])
+
+    const handleClick = member => {
+      localStorage.setItem("selectedMember", member)
+    }
+
     const handleChange = (e, newPage) => {
       setPage(newPage)
     }
+
     const handleChangePage = e => {
       setRowsPerPage(parseInt(e.target.value, 2))
-      setPage(0)
+      setPage(1)
     }
+
     return (<>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
@@ -61,16 +74,17 @@ const useStyles = makeStyles({
           <TableBody>
             { members.length != 0
              ? members
-             .slice(page * rowsPerPage, (page +1) * rowsPerPage)
-             .map((member, i) => (
-                 <TableRow key={member.username}>
+             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+             .map(({username, password, name, email }, i) => (
+                 <TableRow key={username}>
                  <TableCell component="th" scope="row">
                  {page * rowsPerPage + i + 1}
                  </TableCell>
-                 <TableCell align="right">{member.username}</TableCell>
-                 <TableCell align="right">{member.password}</TableCell>
-                 <TableCell align="right">{member.name}</TableCell>
-                 <TableCell align="right">{member.email}</TableCell>
+                 <TableCell align="right">{username}</TableCell>
+                 <TableCell align="right">{password}</TableCell>
+                 <TableCell align="right"><Link to = {`/member-detail/${username}`}
+                 onClick = {() =>  handleClick(JSON.stringify({username, password, name, email}))}></Link>{name}</TableCell>
+                 <TableCell align="right">{email}</TableCell>
              </TableRow>)
             )
             :  <TableRow>
@@ -83,7 +97,7 @@ const useStyles = makeStyles({
         </Table>
       </TableContainer>
       <div className={pageClasses.root}>
-          <Pagination count={10} color="primary"
+          <Pagination count={members.length} color="primary"
           page = {page}
           rowsPerPage = {rowsPerPage}
           onChange = {handleChange}
@@ -91,4 +105,4 @@ const useStyles = makeStyles({
       </div>
       </>);
   }
-  export default MemberList
+  export default MemberListComponent

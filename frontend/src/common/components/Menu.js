@@ -1,20 +1,45 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+
 export const MemberMenu = () => (<nav>
-        <ol>
-            <li><Link to='/member-login'>회원 로그인</Link></li>
-            <li><Link to='/member-list'>회원 목록</Link></li>
-            <li><Link to='/member-register'>회원 등록</Link></li>
-            <li><Link to='/member-retreive'>회원 조회</Link></li>
-            <li><Link to='/member-detail'>회원 상세</Link></li>
-            <li><Link to='/member-modify'>회원 수정</Link></li>
-            <li><Link to='/member-delete'>회원 탈퇴</Link></li>
-            
-        </ol>
+        
+        {
+            localStorage.getItem("logineMember") === '' ?
+            <ol>
+                <li><Link to='/member-login'>회원 로그인</Link></li>
+                <li><Link to='/member-register'>회원 등록</Link></li>
+            </ol>
+            :
+            <ol>
+                <li><Link to='/member-list'>회원 목록</Link></li>
+                <li><Link to='/member-retreive'>회원 이름조회</Link></li>
+                <li><Link to='/member-detail'>회원 상세</Link></li>
+                <li><Link to='/member-modify'>회원 수정</Link></li>
+                <li><Link to='/member-delete'>회원 탈퇴</Link></li>
+                <li><Link to='/member-logout' onClick={()=> localStorage.setItem("loginedMember","")}>로그아웃</Link></li>
+                
+            </ol>
+        }
+
 </nav>
 
 )
+/*
+export const MemberMenu = () => ( <nav>
+    <li><Link to='/member-login'>회원로그인</Link></li>
+    <li><Link to='/member-register'>회원등록</Link></li>
+    <li><Link to='/member-list'>회원목록</Link></li>
+    <li><Link to='/member-retreive'>회원이름조회</Link></li>
+    <li><Link to='/member-detail'>회원상세</Link></li>
+    <li><Link to='/member-modify'>회원수정</Link></li>
+    <li><Link to='/member-delete'>회원탈퇴</Link></li>
+    <li><Link to='/member-logout'>로그아웃</Link></li>
+
+</nav>
+
+)
+*/
 export const ItemMenu = () => (<nav>
     <ol>
         <li><Link to='/item-list'>아이템 목록</Link></li>

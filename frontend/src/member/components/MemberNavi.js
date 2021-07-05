@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Navi.css'
+import '../styles/Navi.css'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-export default function SearchAppBar() {
+const MemberNavi = () => {
   const classes = useStyles();
   return (
     <div className="Nav">
@@ -104,3 +104,5 @@ export default function SearchAppBar() {
     </div>
   );
 }
+
+export default MemberNavi

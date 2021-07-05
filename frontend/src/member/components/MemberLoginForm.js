@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 //import '../styles/MemberList.css'
 import { memberLogin } from '../../api'
 
-const MemverLogin = () => {
+const MemberLoginForm = () => {
   
   const [ userInfo, setUserInfo ] = useState({
     username : '',
@@ -68,4 +68,4 @@ const MemverLogin = () => {
     )
 }
 
-export default MemverLogin
+export default MemberLoginForm

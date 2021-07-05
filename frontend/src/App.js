@@ -1,28 +1,26 @@
 import React from 'react'
 import { Redirect, Route } from "react-router-dom"
-import { MemberDelete, MemberDetail, MemberList, MemberModify, MemberRetrieve, MemeberRegister, MemberLogin  } from './member'
+import { MemberDetail, MemberList, MemberModify, MemberRegister, MemberLogin } from './member'
 import { Home, Member, Board, Item, Stock} from './templates'
 import { ItemDelete, ItemDetail, ItemList, ItemModify, ItemRegister, ItemRetrieve} from './item'
 import { PostRegister } from './board'
-import { Nav } from './common'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { memberDelete } from './api'
 const App = () => {
   return (<div>
     <Router>
-        <Nav/>
+        
         <Route exact path='/home' component={Home}/>
         <Redirect exact from={'/'} to={'/home'}/>
+        <Redirect exact from={'/member-logout'} to={'/home'}/>
         
         <Route exact path='/user' component={Member}/>
         <Route exact path='/member-login' component={MemberLogin}/>
-        <Route exact path='/member-delete' component={MemberDelete}/>
-        <Route exact path='/member-detail' component={MemberDetail}/>
+        <Route exact path='/member-detail/:id' component={MemberDetail}/>
         <Route exact path='/member-list' component={MemberList}/>
         <Route exact path='/member-modify' component={MemberModify}/>
-        <Route exact path='/member-register' component={MemeberRegister}/>
-        <Route exact path='/member-retrieve' component={MemberRetrieve}/>
+        <Route exact path='/member-register' component={MemberRegister}/>
 
         <Route exact path='/item' component={Item}/>
         <Route exact path='/item-delete' component={ItemDelete}/>

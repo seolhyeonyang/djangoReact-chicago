@@ -4,6 +4,7 @@ from member import views
 urlpatterns = [
     url(r'^register', views.members),
     url(r'^list', views.members),
+    url(r'^login', views.member),
 ]
 
 '''
