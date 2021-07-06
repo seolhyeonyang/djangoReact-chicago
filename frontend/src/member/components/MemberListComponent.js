@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-//import './UserList.css'
+import '../styles/MemberList.css'
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -18,6 +18,7 @@ import { Typography } from '@material-ui/core';
 const useStyles = makeStyles({
     table: {
       minWidth: 650,
+      
     },
   });
   const usePageStyles = makeStyles((theme) => ({
@@ -32,7 +33,7 @@ const MemberListComponent = () => {
     const [ members, setMembers ] = useState([])
 
     const [ page, setPage ] = useState(1)
-    const [ rowsPerPage, setRowsPerPage ] = useState(3)
+    const [ rowsPerPage, setRowsPerPage ] = useState(5)
 
     const classes = useStyles();
     const pageClasses = usePageStyles();
@@ -56,17 +57,20 @@ const MemberListComponent = () => {
     }
 
     const handleChangePage = e => {
-      setRowsPerPage(parseInt(e.target.value, 3))
+      setRowsPerPage(parseInt(e.target.value, 5))
       setPage(1)
     }
 
+    
+
     return (<>
+
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>회원 ID</TableCell>
-              
+              <TableCell>NO.</TableCell>
+              <TableCell align="right">회원 ID</TableCell>
               <TableCell align="right">비밀번호</TableCell>
               <TableCell align="right">회원 이름</TableCell>
               <TableCell align="right">이메일</TableCell>
@@ -75,13 +79,14 @@ const MemberListComponent = () => {
           <TableBody>
             { members.length != 0
              ? members
-             .slice((page * rowsPerPage)-3, (page * rowsPerPage)-3 + rowsPerPage)
-             .map(({username, password, name, email }) => (
+             .slice((page * rowsPerPage)-5, (page * rowsPerPage)-5 + rowsPerPage)
+             //(page * rowsPerPage)-3 가 0이다, 그냥 숫자로 넣으면 계속 같은 데이터 나옴
+             .map(({username, password, name, email }, i) => (
                  <TableRow key={username}>
                  <TableCell component="th" scope="row">
-                 {username}
+                 {(page * rowsPerPage)-4 + i}
                  </TableCell>
-                 
+                 <TableCell align="right">{username}</TableCell>
                  <TableCell align="right">{password}</TableCell>
                  <TableCell align="right"><Link to = {`/member-detail/${username}`}
                  onClick = {() =>  handleClick(JSON.stringify({username, password, name, email}))}>{name}</Link></TableCell>
@@ -98,8 +103,9 @@ const MemberListComponent = () => {
         </Table>
       </TableContainer>
       <div className={pageClasses.root}>
-        <Typography>Page : {page}</Typography>
-          <Pagination count={parseInt(members.length/2)} color="primary"
+        <Typography className={'page'}>Page : {page}</Typography>
+          <Pagination count={parseInt(members.length/5)+1} color="primary"
+          className={'center'}
           rowsPerPage = {rowsPerPage}
           onChange = {handleChange}
           onChangePage = {handleChangePage}/>

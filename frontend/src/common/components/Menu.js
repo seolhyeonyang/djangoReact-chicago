@@ -18,15 +18,14 @@ export const MemberMenu = () => {
                 :
                 <ol>
                     <li><Link to='/member-list'>회원목록</Link></li>
-                    <li><Link to='/member-retreive'>회원이름조회</Link></li>
+                    <li><Link to='/member-retrieve'>회원이름조회</Link></li>
                     <li><Link to='/member-detail'>회원상세</Link></li>
                     <li><Link to='/member-modify'>회원수정</Link></li>
                     <li><Link to='/member-delete'>회원탈퇴</Link></li>
                     <li><Link to='/member-logout' onClick={() => {
                         localStorage.setItem("loginedMember","")
                         alert('로그아웃')
-                        history.push('/home')
-                        alert('로그아웃 완료')
+                        history.push('/member-logout')
                         }}>로그아웃</Link></li>
                 </ol>
             }

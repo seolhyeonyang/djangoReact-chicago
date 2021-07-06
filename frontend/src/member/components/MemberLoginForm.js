@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-//import '../styles/MemberList.css'
+//import '../styles/MemberLogin.css'
 import { memberLogin } from '../../api'
 import { useHistory } from 'react-router'
 
@@ -34,6 +34,8 @@ const MemberLoginForm = () => {
       
       }else if(res.data.result === 'USERNAME_FAIL'){
         alert(`아이디가 틀립니다.`)
+        document.getElementById("username").value = ""
+        document.getElementById("password").value = ""
 
       }else{
         alert(`로그인 성공 : ${JSON.stringify(res.data)}`)

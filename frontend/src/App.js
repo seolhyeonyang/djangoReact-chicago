@@ -1,6 +1,6 @@
 import React from 'react'
 import { Redirect, Route } from "react-router-dom"
-import { MemberDetail, MemberList, MemberModify, MemberRegister, MemberLogin } from './member'
+import { MemberDelete ,MemberDetail, MemberList, MemberModify, MemberRegister, MemberLogin, MemberRetrieve } from './member'
 import { Home, Member, Board, Item, Stock} from './templates'
 import { ItemDelete, ItemDetail, ItemList, ItemModify, ItemRegister, ItemRetrieve} from './item'
 import { PostRegister } from './board'
@@ -19,11 +19,13 @@ const App = () => {
         
         <Route exact path='/user' component={Member}/>
         <Route exact path='/member-login' component={MemberLogin}/>
+        <Route exact path='/member-delete' component={MemberDelete}/>
         <Route exact path='/member-detail/:id' component={MemberDetail}/>
         <Route exact path='/member-list' component={MemberList}/>
         <Route exact path='/member-logout' component={Home}/>
         <Route exact path='/member-modify' component={MemberModify}/>
         <Route exact path='/member-register' component={MemberRegister}/>
+        <Route exact path='/member-retrieve' component={MemberRetrieve}/>
 
         <Route exact path='/item' component={Item}/>
         <Route exact path='/item-delete' component={ItemDelete}/>

@@ -6,12 +6,12 @@ const headers = {'Content-Type':'application/json'}
 
 /* Member */ 
 export const memberLogin = body => axios.post(`${SEVER}api/member/login`, {headers, body})
-export const memberDelete = body => axios.post(`${SEVER}api/member/delete`, {headers, body})
-export const memberDetail = body => axios.post(`${SEVER}api/member/detail`, {headers, body})
+export const memberDelete = id => axios.delete(`${SEVER}api/member/delete/${id}`)
+export const memberDetail = id => axios.get(`${SEVER}api/member/detail/${id}`)
 export const memberList = () => axios.get(`${SEVER}adm/member/list`)
 export const memberModify = body => axios.put(`${SEVER}api/member/modify`, {headers, body})
 export const MemberRegister = body => axios.post(`${SEVER}api/member/register`, {headers, body})
-export const memberRetrieve = body => axios.post(`${SEVER}adm/member/retrieve`, {headers, body})
+export const memberRetrieve = name => axios.get(`${SEVER}adm/member/retrieve/${name}`)
 
 /* Item */
 export const itemDelete = body => axios.post(`${SEVER}item/delete`, {headers, body})

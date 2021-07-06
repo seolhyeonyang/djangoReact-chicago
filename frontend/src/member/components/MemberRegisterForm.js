@@ -28,7 +28,7 @@ const MemberRegisterForm = () => {
     MemberRegister({...userInfo})
     .then(res => {
       alert(`회원가입 완료 : ${res.data.result}`)
-      // history.push('login')
+      history.push('member-login')
     })
     .catch(err => {
       alert(`회원가입 실패 : ${err}`)

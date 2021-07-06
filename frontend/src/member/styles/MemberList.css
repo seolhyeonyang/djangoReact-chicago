@@ -1,0 +1,26 @@
+.center{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    
+    
+  }
+
+.page{
+    text-align: right;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 95%;
+  }
+
+.search{
+  text-align: right;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 95%;
+  
+    
+  }
